@@ -1,5 +1,4 @@
 #include <Arduino.h>
-
 #include "configuration.h"
 #include "display_task.h"
 #include "interface_task.h"
@@ -19,13 +18,11 @@ static MotorTask motor_task(1, config);
 
 InterfaceTask interface_task(0, motor_task, display_task_p);
 
-//  WifiSSID and WifiPassword are defined in wifi_task.h
 WifiTask wifiTask(WifiSSID, WifiPassword);
 
 void setup()
 {
-  Serial.begin(115200);
-  wifiTask.begin(); // Initialize WiFi connection
+  wifiTask.initializeWifi(); 
 
 #if SK_DISPLAY
   display_task.setLogger(&interface_task);
@@ -34,19 +31,6 @@ void setup()
   // Connect display to motor_task's knob state feed
   motor_task.addListener(display_task.getKnobStateQueue());
 #endif
-
-  // After some delay or event that ensures connection is established
-  // Serial.print("IP Address: ");
-  // Serial.println(wifiTask.localIP());
-
-  // Serial.print("Connection Status: ");
-  // Serial.println(wifiTask.status() ? "Connected" : "Not Connected");
-
-  // Serial.print("Channel: ");
-  // Serial.println(wifiTask.channel());
-
-  // Serial.print("Frequency: ");
-  // Serial.println(wifiTask.freq());
 
   interface_task.begin();
   config.setLogger(&interface_task);

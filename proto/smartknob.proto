@@ -198,6 +198,13 @@ message SmartKnobConfig {
      * with more configurability in a future protocol version.
      */
     int32 led_hue = 13 [(nanopb).int_size = IS_16];
+
+    /**
+     * Add the WiFi configuration as a field of SmartKnobConfig
+     */ 
+    string ssid = 14;
+    string password = 15; 
+    
 }
 
 message RequestState {}
@@ -218,4 +225,9 @@ message MotorCalibration {
 message StrainCalibration {
     int32 idle_value = 1;
     int32 press_delta = 2; 
+}
+
+message WiFiConfig {
+    string ssid = 1;
+    string password = 2; 
 }

@@ -1,4 +1,5 @@
-// wifi_task.h
+#pragma once
+
 #ifndef WIFI_TASK_H
 #define WIFI_TASK_H
 
@@ -6,22 +7,32 @@
 #include <WiFi.h>
 
 #define WifiSSID "Haseeb"
-#define WifiPassword  "hasifast2023"
-
+#define WifiPassword "hasifast2023"
 
 class WifiTask
 {
 public:
     WifiTask(const char *ssid, const char *password);
-    void begin();     // Initialize WiFi
-    String localIP(); // Retrieve the local IP address
-    bool status();    // Check if WiFi is connected
-    int channel();    // Get the current WiFi channel
-    String freq();    // Determine the frequency band
+    void initializeWifi();
+    String getLocalIp();
+    bool getStatus();
+    int getChannel();
+    String getFrequency();
 
 private:
     const char *ssid;
     const char *password;
 };
+
+typedef enum {
+    WIFI_NO_SHIELD        = WL_NO_SHIELD,   
+    WIFI_IDLE_STATUS      = WL_IDLE_STATUS,
+    WIFI_NO_SSID_AVAIL    = WL_NO_SSID_AVAIL,
+    WIFI_SCAN_COMPLETED   = WL_SCAN_COMPLETED,
+    WIFI_CONNECTED        = WL_CONNECTED,
+    WIFI_CONNECT_FAILED   = WL_CONNECT_FAILED,
+    WIFI_CONNECTION_LOST  = WL_CONNECTION_LOST,
+    WIFI_DISCONNECTED     = WL_DISCONNECTED
+} WIFI_CONFIG_STATUS;
 
 #endif // WIFI_TASK_H

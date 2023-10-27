@@ -1,4 +1,3 @@
-// wifi_task.cpp
 #include "wifi_task.h"
 
 WifiTask::WifiTask(const char *ssid, const char *password)
@@ -7,16 +6,15 @@ WifiTask::WifiTask(const char *ssid, const char *password)
     this->password = password;
 }
 
-void WifiTask::begin()
+void WifiTask::initializeWifi()
 {
-    // Initialize the serial communication if it's not initialized elsewhere
     WiFi.begin(this->ssid, this->password);
     delay(10000);
 }
 
-String WifiTask::localIP()
+String WifiTask::getLocalIp()
 {
-    if (WiFi.status() == WL_CONNECTED)
+    if (WiFi.status() == WIFI_CONNECTED)
     {
         return WiFi.localIP().toString();
     }
@@ -26,28 +24,27 @@ String WifiTask::localIP()
     }
 }
 
-bool WifiTask::status()
+bool WifiTask::getStatus()
 {
-    return (WiFi.status() == WL_CONNECTED);
+    return (WiFi.status() == WIFI_CONNECTED);
 }
 
-int WifiTask::channel()
+int WifiTask::getChannel()
 {
-    if (WiFi.status() == WL_CONNECTED)
+    if (WiFi.status() == WIFI_CONNECTED)
     {
         return WiFi.channel();
     }
     else
     {
-        return -1; // Return -1 or any other indicator of "no channel"
+        return -1;
     }
 }
 
-String WifiTask::freq()
+String WifiTask::getFrequency()
 {
-    if (WiFi.status() == WL_CONNECTED)
+    if (WiFi.status() == WIFI_CONNECTED)
     {
-        // ESP32 is typically 2.4GHz only, but you're preparing for future possibilities
         return (WiFi.channel() <= 14) ? "2.4GHz" : "5GHz";
     }
     else
