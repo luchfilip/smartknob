@@ -24,7 +24,7 @@ String WifiTask::getLocalIp()
     }
 }
 
-bool WifiTask::getStatus()
+bool WifiTask::getConnectionStatus()
 {
     return (WiFi.status() == WIFI_CONNECTED);
 }
@@ -38,17 +38,5 @@ int WifiTask::getChannel()
     else
     {
         return -1;
-    }
-}
-
-String WifiTask::getFrequency()
-{
-    if (WiFi.status() == WIFI_CONNECTED)
-    {
-        return (WiFi.channel() <= 14) ? "2.4GHz" : "5GHz";
-    }
-    else
-    {
-        return "Not connected";
     }
 }
