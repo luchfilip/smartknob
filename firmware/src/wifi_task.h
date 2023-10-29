@@ -1,3 +1,4 @@
+
 #pragma once
 
 #ifndef WIFI_TASK_H
@@ -7,22 +8,20 @@
 #include <WiFi.h>
 #include "secrets.h"
 
-class WifiTask
-{
+class WifiTask {
 public:
-    WifiTask(const char *ssid, const char *password);
+    WifiTask(const char* ssid, const char* password);
     void initializeWifi();
     String getLocalIp();
-    bool getConnectionStatus();
+    bool isConnected();
     int getChannel();
 
 private:
-    const char *ssid;
-    const char *password;
+    const char* ssid;
+    const char* password;
 };
 
-typedef enum
-{
+typedef enum {
     WIFI_NO_SHIELD = WL_NO_SHIELD,
     WIFI_IDLE_STATUS = WL_IDLE_STATUS,
     WIFI_NO_SSID_AVAIL = WL_NO_SSID_AVAIL,
@@ -33,4 +32,4 @@ typedef enum
     WIFI_DISCONNECTED = WL_DISCONNECTED
 } WIFI_CONFIG_STATUS;
 
-#endif // WIFI_TASK_H
+#endif
