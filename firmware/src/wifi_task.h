@@ -9,7 +9,7 @@
 
 class WifiTask {
 public:
-    WifiTask(const char* ssid, const char* password);
+    WifiTask();
     void initializeWifi();
     String getLocalIp();
     bool isConnected();

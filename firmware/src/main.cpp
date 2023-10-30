@@ -18,21 +18,13 @@ static DisplayTask* display_task_p = nullptr;
 #endif
 static MotorTask motor_task(1, config);
 
+WifiTask wifiTask;
 
 InterfaceTask interface_task(0, motor_task, display_task_p);
 
-#ifdef SECRETS_H
-WifiTask wifiTask(WifiSSID, WifiPassword);
-#else
-#error "secrets.h is missing. Please rename secrets.h.example to secrets.h and set your own secrets."
-#endif
-
 void setup()
 {
-
-#ifdef SECRETS_H
   wifiTask.initializeWifi(); 
-#endif
 
 #if SK_DISPLAY
   display_task.setLogger(&interface_task);

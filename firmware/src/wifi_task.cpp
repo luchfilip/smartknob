@@ -1,6 +1,14 @@
 #include "wifi_task.h"
 
-WifiTask::WifiTask(const char *ssid, const char *password) : ssid(ssid), password(password) {}
+WifiTask::WifiTask() {
+#ifdef SECRETS_H
+    ssid = WIFI_SSID;
+    password = WIFI_PASSWORD;
+#else
+    ssid = nullptr;
+    password = nullptr;
+#endif
+}
 
 void WifiTask::initializeWifi() {
     WiFi.begin(this->ssid, this->password);
