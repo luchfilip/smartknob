@@ -4,14 +4,13 @@ WifiTask::WifiTask(const char *ssid, const char *password) : ssid(ssid), passwor
 
 void WifiTask::initializeWifi() {
     WiFi.begin(this->ssid, this->password);
-    delay(10000); 
 }
 
 String WifiTask::getLocalIp() {
     if (WiFi.status() == WIFI_CONNECTED) {
         return WiFi.localIP().toString();
     } else {
-        return "Not Connected";
+        return WIFI_NOT_CONNECTED;
     }
 }
 

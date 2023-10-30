@@ -6,7 +6,6 @@
 
 #include <Arduino.h>
 #include <WiFi.h>
-#include "secrets.h"
 
 class WifiTask {
 public:
@@ -15,6 +14,7 @@ public:
     String getLocalIp();
     bool isConnected();
     int getChannel();
+    static constexpr const char* WIFI_NOT_CONNECTED = "Not Connected";
 
 private:
     const char* ssid;
