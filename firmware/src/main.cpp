@@ -22,10 +22,7 @@ WifiTask wifiTask;
 
 InterfaceTask interface_task(0, motor_task, display_task_p);
 
-void setup()
-{
-  wifiTask.initializeWifi(); 
-
+void setup() {
 #if SK_DISPLAY
   display_task.setLogger(&interface_task);
   display_task.begin();
@@ -33,6 +30,8 @@ void setup()
   // Connect display to motor_task's knob state feed
   motor_task.addListener(display_task.getKnobStateQueue());
 #endif
+
+  wifiTask.initializeWifi();
 
   interface_task.begin();
 
