@@ -4,6 +4,9 @@
 #include "display_task.h"
 #include "interface_task.h"
 #include "motor_task.h"
+#include <WiFi.h>
+#include "wifi_task.h"
+#include "secrets.h"
 
 Configuration config;
 
@@ -15,17 +18,20 @@ static DisplayTask* display_task_p = nullptr;
 #endif
 static MotorTask motor_task(1, config);
 
+WifiTask wifiTask;
 
 InterfaceTask interface_task(0, motor_task, display_task_p);
 
 void setup() {
-  #if SK_DISPLAY
+#if SK_DISPLAY
   display_task.setLogger(&interface_task);
   display_task.begin();
 
   // Connect display to motor_task's knob state feed
   motor_task.addListener(display_task.getKnobStateQueue());
-  #endif
+#endif
+
+  wifiTask.initializeWifi();
 
   interface_task.begin();
 
